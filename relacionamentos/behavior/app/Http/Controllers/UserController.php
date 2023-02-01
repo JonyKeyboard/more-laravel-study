@@ -98,6 +98,16 @@ class UserController extends Controller
             }
         }
 
+        $comments = $user->commentsOnMyPost()->get();
+
+        if($comments){
+            echo "<h1>Comentários nos meus Artigos</h1>";
+
+            foreach ($comments as $comment){
+                echo "Post: #$comment->post User: #$comment->user $comment->content<br>";
+            }
+        }
+
     }
 
     /**
