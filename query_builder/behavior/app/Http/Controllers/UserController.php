@@ -98,7 +98,7 @@ class UserController extends Controller
         //        foreach ($users as $user) {
         //            echo "#{$user->id} Nome: {$user->name} {$user->status_description}<br>";
         //        }
-//---------------------------------------------------------------------------------------------------------
+
         /**
          * chunk(count, closure)
          *      * Obrigatório usar o orderBy
