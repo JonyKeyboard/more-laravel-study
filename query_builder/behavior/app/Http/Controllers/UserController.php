@@ -145,21 +145,54 @@ class UserController extends Controller
          *
          * whereTime('field', 'operator', 'value')
          */
+
+        //        $users = DB::table('users')
+        //                    //->whereIn('users.status', [0, 1])
+        //                    //->whereNotIn('users.status', [0, 1])
+        //                    //->whereNull('')
+        //                    ->whereNotNull('users.name')
+        //                    //->whereColumn('created_at', '=', 'updated_at')
+        //                    //->whereDate('updated_at', '>', '2018-11-30')
+        //                    ->whereDay('updated_at', '=', '01')
+        //                    ->whereMonth('updated_at', '=', '01')
+        //                    ->whereYear('updated_at', '=', '2019')
+        //                    ->whereTime('updated_at', '>', '17:30:00')
+        //                    ->get();
+        //
+        //        foreach ($users as $user){
+        //            echo "#{$user->id} Nome: {$user->name} {$user->status}<br>";
+        //        }
+//-------------------------------------------------------------------------------------
+        /**
+         * join('table', 'field_1', 'operator', 'field_2')
+         *      INNER JOIN table ON field_1 (operator) field_2
+         *
+         * leftJoin('table', 'field_1', 'operator', 'field_2')
+         *      LEFT JOIN table ON field_1 (operator) field_2
+         *
+         * crossJoin('table')
+         *
+         * join('table', function($join){
+         *  $join->on('field_1', 'operator', 'field_2')
+         *       ->where('field_3', 'operator_2', 'field_4');
+         * })
+         *      INNER JOIN table ON (field_1 (operator) field_2 AND field_3 (operator_2) field_4)
+         */
+
         $users = DB::table('users')
-                    //->whereIn('users.status', [0, 1])
-                    //->whereNotIn('users.status', [0, 1])
-                    //->whereNull('')
-                    ->whereNotNull('users.name')
-                    //->whereColumn('created_at', '=', 'updated_at')
-                    //->whereDate('updated_at', '>', '2018-11-30')
-                    ->whereDay('updated_at', '=', '01')
-                    ->whereMonth('updated_at', '=', '01')
-                    ->whereYear('updated_at', '=', '2019')
-                    ->whereTime('updated_at', '>', '17:30:00')
+                    ->select('users.id', 'users.name', 'users.status', 'addresses.address')
+                    //->leftJoin('addresses', 'users.id', '=', 'addresses.user')
+                    ->join('addresses', function($join){
+                        $join->on('users.id', '=', 'addresses.user')
+                            ->where('addresses.status', '=', '1');
+                    })
+                    ->orderby('users.id', 'ASC')
                     ->get();
 
-        foreach ($users as $user){
-            echo "#{$user->id} Nome: {$user->name} {$user->status}<br>";
+        echo "Total de registros: {$users->count()}<br>";
+
+        foreach ($users as $user) {
+            echo "#{$user->id} Nome: {$user->name} {$user->status} {$user->address}<br>";
         }
 
     }
