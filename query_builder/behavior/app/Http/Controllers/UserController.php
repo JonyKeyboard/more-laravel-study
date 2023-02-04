@@ -57,7 +57,7 @@ class UserController extends Controller
         //        foreach($users as $user){
         //            echo "#{$user->id} Nome: {$user->name} {$user->status}<br>";
         //        }
-//-------------------------------------------------------------------------------------------------
+
         /**
          * selectRaw(exp)
          *      Informa quais campos devem ser retornados através de uma expressão
@@ -81,22 +81,85 @@ class UserController extends Controller
          *      Nível mais baixo de expressão bruta, onde você pode informar a query completa
          */
 
-        $users = DB::select(DB::raw('SELECT
-                                    users.id,
-                                    users.name,
+        //        $users = DB::select(DB::raw('SELECT
+        //                                    users.id,
+        //                                    users.name,
+        //
+        //                                    CASE
+        //                                        WHEN users.status = 1 THEN "ATIVO"
+        //                                        ELSE "INATIVO"
+        //                                    END status_description
+        //
+        //                                    FROM users
+        //	                                WHERE (SELECT COUNT(1) FROM addresses a WHERE a.user = users.id) > 2
+        //		                                AND users.status = :userStatus
+        //	                                ORDER BY updated_at - created_at ASC;'), ['userStatus' => '1']);
+        //
+        //        foreach ($users as $user) {
+        //            echo "#{$user->id} Nome: {$user->name} {$user->status_description}<br>";
+        //        }
+//---------------------------------------------------------------------------------------------------------
+        /**
+         * chunk(count, closure)
+         *      * Obrigatório usar o orderBy
+         *      count = Quantidade de registros a ser processador por vez
+         *      closure = função anônima com a regra de negócio
+         *
+         * chunkById(count, closure)
+         *      count = Quantidade de registros a ser processador por vez
+         *      closure = função anônima com a regra de negócio
+         */
 
-                                    CASE
-                                        WHEN users.status = 1 THEN "ATIVO"
-                                        ELSE "INATIVO"
-                                    END status_description
+        //        DB::table('users')->where('id', '<', '500')->orderBy('id')->chunk(50, function($users){
+        //            foreach ($users as $user){
+        //                echo "#{$user->id} Nome: {$user->name} {$user->status}<br>";
+        //            }
+        //
+        //            echo "Encerrou um ciclo!<br>";
+        //            sleep(1);
+        //        });
 
-                                    FROM users
-                                    WHERE (SELECT COUNT(1) FROM addresses a WHERE a.user = users.id) > 2
-                                        AND users.status = :userStatus
-                                    ORDER BY updated_at - created_at ASC;'), ['userStatus' => '1']);
+        /**
+         * whereIn('column', [0, 1])
+         *      Referente a WHERE column IN (0, 1)
+         *
+         * whereNotIn('column', [0, 1])
+         *      Referente a WHERE column NOT IN (0, 1)
+         *
+         * whereNull('column')
+         *      Referente a WHERE column IS NULL
+         *
+         * whereNotNull('column')
+         *      Referente a WHERE column IS NOT NULL
+         *
+         * whereColumn('field_1', 'operator', 'field_2')
+         *      Referente a WHERE field_1 (operator [=, >, <, >=, <=]) field_2
+         *
+         * whereData('field', 'operator', 'value')
+         *
+         * whereDay('field', 'operator', 'value')
+         *
+         * whereMonth('field', 'operator', 'value')
+         *
+         * whereYear('field', 'operator', 'value')
+         *
+         * whereTime('field', 'operator', 'value')
+         */
+        $users = DB::table('users')
+                    //->whereIn('users.status', [0, 1])
+                    //->whereNotIn('users.status', [0, 1])
+                    //->whereNull('')
+                    ->whereNotNull('users.name')
+                    //->whereColumn('created_at', '=', 'updated_at')
+                    //->whereDate('updated_at', '>', '2018-11-30')
+                    ->whereDay('updated_at', '=', '01')
+                    ->whereMonth('updated_at', '=', '01')
+                    ->whereYear('updated_at', '=', '2019')
+                    ->whereTime('updated_at', '>', '17:30:00')
+                    ->get();
 
-        foreach ($users as $user) {
-            echo "#{$user->id} Nome: {$user->name} {$user->status_description}<br>";
+        foreach ($users as $user){
+            echo "#{$user->id} Nome: {$user->name} {$user->status}<br>";
         }
 
     }
