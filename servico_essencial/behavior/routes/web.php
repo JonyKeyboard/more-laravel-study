@@ -93,11 +93,12 @@ Route::get('/files', function(){
 
     //Storage::copy('laravael-training.txt', 'public/laravael-training.txt');
     //Storage::move('laravael-training.txt', 'public/laravael-training.txt');
-    Storage::delete('public/laravael-training.txt');
-
+    //Storage::delete('public/laravael-training.txt');
 
     echo '<pre>';
     //var_dump($files, $allFiles, $directories, $allDirectories);
     echo '</pre>';
 });
+
+Route::resource('/imoveis', 'PropertyController');
 
