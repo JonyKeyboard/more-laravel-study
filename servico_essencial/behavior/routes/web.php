@@ -101,4 +101,6 @@ Route::get('/files', function(){
 });
 
 Route::resource('/imoveis', 'PropertyController');
+                                                                        //testando com passagem de parametro
+Route::get('teste-middleware', 'PropertyController@middle')->middleware('testemiddleware:jony');
 
