@@ -31,6 +31,23 @@
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, est! Maiores nesciunt ullam ea id ad ipsa commodi voluptas, totam sequi ab, laboriosam natus quis repellat itaque, consequatur dolore vero.</p>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-12">
+                @component('front.components.alert', ['type' => 'danger', 'datetime' => date('d/m/Y H:i:s')])
+                    Mensagem de teste
+                @endcomponent
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                @alert(['type' => 'success', 'datetime' => date('d/m/Y H:i:s')])
+                    Essa msg é do meu componente
+                @endalert
+            </div>
+        </div>
+
     </div>
 
 @endsection
