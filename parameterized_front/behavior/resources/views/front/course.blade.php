@@ -12,7 +12,7 @@
 
 @section('js')
     <script>
-        alert('Teste');
+        // alert('Teste');
     </script>
 @endsection
 

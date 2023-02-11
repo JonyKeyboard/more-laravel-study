@@ -8,7 +8,7 @@
         <div class="row py-4">
 
             <div class="col-12">
-                Meu nome é: {{ $user->name }}
+                <h1 class="jony">Meu nome é: {{ $user->name }}</h1>
             </div>
 
         </div>
