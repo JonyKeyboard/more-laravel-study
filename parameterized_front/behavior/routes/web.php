@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +14,9 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/', function () {
 
@@ -48,3 +53,7 @@ Route::get('/', function () {
 Route::get('/curso', function(){
     return view('front.course');
 });
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
