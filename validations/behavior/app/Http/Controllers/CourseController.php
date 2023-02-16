@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
 {
@@ -33,18 +34,27 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Course $request)
+    // public function store(Course $request)
+    public function store(Request $request)
     {
-        // $rules = [
-        //     'name' => 'required',
-        //     'tutor' => 'required|min:3',
-        //     'email' => 'required|email'
-        // ];
+        $rules = [
+            'name' => 'required',
+            'tutor' => 'required|min:3',
+            'email' => 'required|email'
+        ];
 
-        // $messages = [
-        //     'name.required' => 'por favor, Insira o nome do curso',
-        //     'email.required' => 'por favor, Insira o email do curso'
-        // ];
+        $messages = [
+            'name.required' => 'por favor, Insira o nome do curso',
+            'email.required' => 'por favor, Insira o email do curso'
+        ];
+
+        $validate = Validator::make($request->all(), $rules, $messages);
+
+        var_dump($validate->fails());
+
+        if($validate->fails()){
+            return redirect()->route('course.create')->withInput()->withErrors($validate);
+        }
 
         // $request->validate($rules, $messages);
 
