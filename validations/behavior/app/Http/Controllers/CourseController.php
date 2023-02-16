@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Course;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -32,22 +33,22 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Course $request)
     {
-        $rules = [
-            'name' => 'required',
-            'tutor' => 'required|min:3',
-            'email' => 'required|email'
-        ];
+        // $rules = [
+        //     'name' => 'required',
+        //     'tutor' => 'required|min:3',
+        //     'email' => 'required|email'
+        // ];
 
-        $messages = [
-            'name.required' => 'por favor, Insira o nome do curso',
-            'email.required' => 'por favor, Insira o email do curso'
-        ];
+        // $messages = [
+        //     'name.required' => 'por favor, Insira o nome do curso',
+        //     'email.required' => 'por favor, Insira o email do curso'
+        // ];
 
-        $request->validate($rules, $messages);
+        // $request->validate($rules, $messages);
 
-        // var_dump($request->all());
+        var_dump($request->all());
     }
 
     /**
