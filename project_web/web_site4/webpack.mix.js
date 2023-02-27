@@ -10,20 +10,7 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
-// mix.js('resources/js/app.js', 'public/js')
-//     .postCss('resources/css/app.css', 'public/css', [
-//         //
-//     ]);
-
     mix
-
-    // webpackConfig({
-    //     stats: {
-    //         children: true,
-    //     },
-    // })
-
     .sass('resources/views/front/assets/sass/style.scss','public/front/assets/css/style.css')
     .styles([
         'resources/views/front/assets/css/animate.css',
@@ -52,5 +39,14 @@ const mix = require('laravel-mix');
 
     .scripts([
         'resources/views/front/assets/js/main.js'
-    ], 'public/front/assets/js/main.js');
+    ], 'public/front/assets/js/main.js')
+
+    .copyDirectory('resources/views/front/assets/fonts', 'public/front/assets/fonts')
+    .copyDirectory('resources/views/front/assets/images', 'public/front/assets/images')
+
+    .options({
+        processCssUrls: false
+    })
+
+    .version();
 
