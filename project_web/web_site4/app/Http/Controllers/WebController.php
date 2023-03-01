@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+
 class WebController extends Controller
 {
     public function home(){
-        return view('front.home');
+
+        $posts = Post::orderBy('created_at', 'DESC')->limit(3)->get();
+
+        // dd($posts);
+
+        return view('front.home', [
+            'posts' => $posts
+        ]);
     }
 
     public function course(){
