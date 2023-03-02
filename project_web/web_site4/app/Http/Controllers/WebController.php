@@ -6,7 +6,8 @@ use App\Models\Post;
 
 class WebController extends Controller
 {
-    public function home(){
+    public function home()
+    {
 
         $posts = Post::orderBy('created_at', 'DESC')->limit(3)->get();
 
@@ -17,15 +18,30 @@ class WebController extends Controller
         ]);
     }
 
-    public function course(){
+    public function course()
+    {
         return view('front.course');
     }
 
-    public function blog(){
-        return view('front.blog');
+    public function blog()
+    {
+        $posts = Post::orderBy('created_at', 'DESC')->get();
+        return view('front.blog', [
+            'posts' => $posts
+        ]);
     }
 
-    public function contact(){
+    public function article($uri)
+    {
+        $post = Post::where('uri', $uri)->first();
+
+        return view('front.article', [
+            'post' => $post
+        ]);
+    }
+
+    public function contact()
+    {
         return view('front.contact');
     }
 }
